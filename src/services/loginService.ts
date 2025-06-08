@@ -2,6 +2,7 @@ import { RegisterInput } from "../controllers/authController";
 import prisma from "../prismaClient";
 import { loginSchema } from "../validators/authValidator";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 export default class LoginService {
   async execute(input: RegisterInput) {
@@ -20,8 +21,19 @@ export default class LoginService {
 
     if (!validUser) throw new Error("Senha incorreta, digite novamente.");
 
+    const jwtSecret = process.env.JWT_SECRET;
+
+    if (!jwtSecret) {
+      throw new Error("Erro ao realizar o login, tente novamente mais tarde.");
+    }
+
+    const token = jwt.sign({ userId: existingUser.id }, jwtSecret, {
+      expiresIn: "1h",
+    });
+
     return {
       message: "Usuário logado com sucesso.",
+      token: token,
     };
   }
 }
