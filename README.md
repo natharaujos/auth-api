@@ -1,5 +1,3 @@
-Sure! Here's the complete `README.md` **as Markdown code**:
-
 ````markdown
 # Auth API – Authentication System with Node.js, JWT and PostgreSQL
 
