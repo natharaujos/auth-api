@@ -1,59 +1,171 @@
-# Express API Starter with Typescript
+# Auth API – Authentication System with Node.js, JWT and PostgreSQL
 
-How to use this template:
+This is a RESTful API project for user authentication with registration, login, and protected routes using JWT. Built with a focus on **security**, **backend best practices**, and support for **Docker + PostgreSQL + Prisma ORM**.
 
-```sh
-npx create-express-api --typescript --directory my-api-name
-```
+---
 
-Includes API Server utilities:
+## 📦 Technologies
 
-* [morgan](https://www.npmjs.com/package/morgan)
-  * HTTP request logger middleware for node.js
-* [helmet](https://www.npmjs.com/package/helmet)
-  * Helmet helps you secure your Express apps by setting various HTTP headers. It's not a silver bullet, but it can help!
-* [dotenv](https://www.npmjs.com/package/dotenv)
-  * Dotenv is a zero-dependency module that loads environment variables from a `.env` file into `process.env`
-* [cors](https://www.npmjs.com/package/cors)
-  * CORS is a node.js package for providing a Connect/Express middleware that can be used to enable CORS with various options.
+- [Node.js](https://nodejs.org/)
+- [Express](https://expressjs.com/)
+- [JWT](https://jwt.io/)
+- [Bcrypt](https://github.com/kelektiv/node.bcrypt.js/)
+- [Prisma ORM](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Docker Compose](https://docs.docker.com/compose/)
+- [Joi](https://joi.dev/) (validation)
 
-Development utilities:
+---
 
-* [typescript](https://www.npmjs.com/package/typescript)
-  * TypeScript is a language for application-scale JavaScript.
-* [ts-node](https://www.npmjs.com/package/ts-node)
-  * TypeScript execution and REPL for node.js, with source map and native ESM support.
-* [nodemon](https://www.npmjs.com/package/nodemon)
-  * nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-* [eslint](https://www.npmjs.com/package/eslint)
-  * ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code.
-* [typescript-eslint](https://typescript-eslint.io/)
-  * Tooling which enables ESLint to support TypeScript.
-* [jest](https://www.npmjs.com/package/jest)
-  * Jest is a delightful JavaScript Testing Framework with a focus on simplicity.
-* [supertest](https://www.npmjs.com/package/supertest)
-  * HTTP assertions made easy via superagent.
+## 🚀 Getting Started
 
-## Setup
+### 1. Clone the repository
 
 ```
+git clone https://github.com/your-user/auth-api.git
+cd auth-api
+```
+
+### 2. Create the `.env` file
+
+```
+DATABASE_URL="postgresql://postgres:postgres@localhost:5432/auth_api?schema=public"
+JWT_SECRET="your_jwt_secret"
+```
+
+---
+
+### 3. Start PostgreSQL with Docker
+
+```
+docker compose up -d
+```
+
+---
+
+### 4. Install dependencies
+
+```bash
 npm install
 ```
 
-## Lint
+---
 
-```
-npm run lint
-```
+### 5. Initialize Prisma
 
-## Test
-
-```
-npm run test
+```bash
+npx prisma generate
+npx prisma migrate dev --name init
 ```
 
-## Development
+---
 
-```
+### 6. Start the server
+
+```bash
 npm run dev
 ```
+
+The server will run at `http://localhost:3000`
+
+---
+
+## 📂 Project Structure
+
+```
+src/
+├── controllers/      # Auth logic (register, login)
+├── middlewares/      # JWT authentication middleware
+├── routes/           # Auth routes
+├── validators/       # Joi validation schemas
+├── prismaClient.js   # Prisma client instance
+├── app.js            # Express app configuration
+└── server.js         # Server startup
+```
+
+---
+
+## 🔐 Endpoints
+
+### `POST /api/auth/register`
+
+Registers a new user.
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+---
+
+### `POST /api/auth/login`
+
+Authenticates the user and returns a JWT token.
+
+**Request Body:**
+
+```json
+{
+  "email": "user@example.com",
+  "password": "password123"
+}
+```
+
+**Response:**
+
+```json
+{
+  "token": "jwt_token_here"
+}
+```
+
+---
+
+## ✅ TODO (Next Steps)
+
+* [ ] Implement refresh tokens
+* [ ] Password reset via email
+* [ ] User profile or user list (protected route)
+* [ ] Unit and integration tests with Jest
+
+---
+
+## 🐳 docker-compose.yml
+
+```yaml
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres
+    container_name: postgres-auth-api
+    ports:
+      - '5432:5432'
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: auth_api
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:
+```
+
+---
+
+## 🛡️ Security
+
+* Passwords hashed with `bcrypt`
+* JWT token generation with expiration
+* Middleware for route protection
+
+---
+
+## 📝 License
+
+This project is open-source and available under the MIT License.
