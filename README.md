@@ -1,4 +1,3 @@
-```
 # Auth API – Authentication System with Node.js, JWT and PostgreSQL
 
 This is a RESTful API project for user authentication with registration, login, and protected routes using JWT. Built with a focus on **security**, **backend best practices**, and support for **Docker + PostgreSQL + Prisma ORM**.
@@ -22,7 +21,7 @@ This is a RESTful API project for user authentication with registration, login, 
 
 ### 1. Clone the repository
 
-```bash
+```
 git clone https://github.com/your-user/auth-api.git
 cd auth-api
 ```
