@@ -1,4 +1,4 @@
-````markdown
+```
 # Auth API – Authentication System with Node.js, JWT and PostgreSQL
 
 This is a RESTful API project for user authentication with registration, login, and protected routes using JWT. Built with a focus on **security**, **backend best practices**, and support for **Docker + PostgreSQL + Prisma ORM**.
@@ -25,11 +25,11 @@ This is a RESTful API project for user authentication with registration, login, 
 ```bash
 git clone https://github.com/your-user/auth-api.git
 cd auth-api
-````
+```
 
 ### 2. Create the `.env` file
 
-```env
+```
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/auth_api?schema=public"
 JWT_SECRET="your_jwt_secret"
 ```
@@ -38,7 +38,7 @@ JWT_SECRET="your_jwt_secret"
 
 ### 3. Start PostgreSQL with Docker
 
-```bash
+```
 docker compose up -d
 ```
 
