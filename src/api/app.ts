@@ -7,6 +7,7 @@ import * as middlewares from "../middlewares/middlewares";
 import api from "../routes";
 import MessageResponse from "../interfaces/MessageResponse";
 import authRoutes from "../routes/auth";
+import userRoutes from "../routes/user";
 
 require("dotenv").config();
 
@@ -24,6 +25,7 @@ app.get<{}, MessageResponse>("/", (req, res) => {
 });
 
 app.use("/api/auth", authRoutes);
+app.use("/api/user", userRoutes);
 app.use("/api/v1", api);
 
 app.use(middlewares.notFound);

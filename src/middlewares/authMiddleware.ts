@@ -19,12 +19,12 @@ function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
 
   try {
     const decoded = jwt.verify(token, jwtSecret);
-    if (typeof decoded === "object" && "userId" in decoded) {
-      req.user = { userId: (decoded as any).userId as string };
-      next();
-    } else {
+    if (!(typeof decoded === "object" && "userId" in decoded)) {
       return res.status(401).json({ message: "Invalid token payload" });
     }
+
+    req.user = { userId: (decoded as any).userId as string };
+    next();
   } catch (err) {
     return res.status(401).json({ message: "Invalid or expired token" });
   }
