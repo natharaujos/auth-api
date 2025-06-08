@@ -169,8 +169,3 @@ volumes:
 ## 📝 License
 
 This project is open-source and available under the MIT License.
-
-```
-
-You can copy and paste this into a file named `README.md` at the root of your project. Let me know if you want a Portuguese version in parallel or auto-generated docs from your code too!
-```
